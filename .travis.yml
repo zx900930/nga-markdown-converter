@@ -1,13 +1,24 @@
 language: node_js
-node_js: ["8"]
+node_js:
+  - 'node'
+
+notifications:
+  email: false
+
+cache:
+  yarn: true
+
 before_install:
-- git config --global user.email "deploy@travis-ci.org"
-- git config --global user.name "Travis CI Deployment Bot"
+  - export TZ="Asia/Shanghai"
+  - date
+
+install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
 script:
-- npm install
-- npm run build
-after_success:
-- cd build/
-- echo "mm2bc.ustc-zzzz.net" >CNAME
-- git init; git add -- *; git commit --allow-empty-message -m ""
-- git push -f -q https://ustc-zzzz:$GITHUB_TOKEN@github.com/ustc-zzzz/mcbbs-markdown2bbcode-converter master:gh-pages
+  - bash ci/build.sh
+
+env:
+  global:
+    - secure: m7Z6tB/5GDMZqHWdu0Tpi+INNIbkoD/OBrXXt6Kp3TCFbrkerkAiEpqQ7uEiMaBbFsMs817+dhQs22wO6adXgtDLQm3ub+v/En/xZ+xZQjrTWnGFw6d56qNnMFLK901GjaroUtdcc4ZaIamqrw+nH1Pmr6OneBD/DDkn1/7HAkmeAnJsW1Jabx04UzcTckGssL7t9rRlt22+YNBVOQOyVeNByVAkeSxbUaBozdzAJWh/V8hgFyfcsNYpPQT0HetoqivOs44dFabfCdPT7tuhEakcZegq73A1rEFY02MBpzqS6ZpKa8xoRggo1PuBlAh+QOUU9IpX0uFN+UAmDtHEgQkQSeWiqMENTvdOv8R157Q5jkZo2C0hWqHimAq3Hl2kEGLdCfTq/HPA7dumJoRomPon0YdBlRCm7fgfqkTW3YtnSFtSZmA2nzg9Yt1JqPjQOtJ5KCcpXVkA1yi54pogQ1zksUufApj/b/PWSXzqsNVHuahcvkM95qiKWq91wOAOoFBsEEqZatLjYiEnOf4bdpgOuOngSs2k6d0p8+AF9rEcRatYBu7EG/8y+zjcmU4JwsSbA80qeSGlKLnsjvS0oO7Vf1T6MlAxoqPHsdg0U1k9lYhqbv90tKMhL8t0/d1gMH1kLdykxSiZEQxVJzQq5Mb4l/FOsQGw488bUnF1QGk=

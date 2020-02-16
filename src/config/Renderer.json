@@ -26,7 +26,7 @@
         "code": "[code]${code}[/code]\\n",
         "blockquote": "[quote]${quote.split('[br]').join('\\n').replace(/\\n$/,'')}[/quote]\\n",
         "html": "${((d,s)=>d.createElement('span').appendChild(d.createTextNode(s)).parentNode.innerHTML)(document,html)}",
-        "heading": "[size=${7-level}][b]${text}[/b][/size]\\n\\n",
+        "heading": "[size=120%][b]${text}[/b][/size]\\n\\n",
         "hr": "[hr]\\n",
         "list": "[size=3][list${ordered?'=1':''}]\\n${body}[/list][/size]\\n",
         "listitem": "[*]${text.endsWith('\\n')?text:text+'\\n'}",
